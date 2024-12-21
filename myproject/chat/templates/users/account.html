@@ -1,0 +1,16 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Your account</h1>
+<hr>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {user.username}
+    {% if user.photo %}
+    <p ><img src="{{ user.photo.url }}">
+    {% else %}
+    <p ><img src="/media/users/default.png">
+    {% endif %}
+
+</form>
+{% endblock content %}
