@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-@p(^rdzlm-8z8!b75%kqp-k=!3v-(=)%)7)+)=qaccv4k*w3(+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -41,10 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'chat',
+    'users',
     'channels',
 ]
 
-
+AUTH_USER_MODEL = 'users.User' # настройка для User(AbstractUser)
 
 
 MIDDLEWARE = [
@@ -123,10 +123,19 @@ USE_I18N = True
 USE_TZ = True
 
 
+
+# для загрузки изображений
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -145,3 +154,8 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
