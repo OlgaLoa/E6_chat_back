@@ -11,20 +11,29 @@ from django.urls import reverse
 
 # РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ
 class UserRegistration(CreateView):
-    model = User
+    model = get_user_model()
     template_name = 'users/registration.html'
     success_url = reverse_lazy('login')
     fields = ['username', 'password', 'photo']
 
 
 # АВТОРИЗАЦИЯ ПОЛЬЗОВАТЕЛЯ
-class LoginUser(LoginView):
+class LoginUser(LoginView):#без отдельной формы
     form_class = AuthenticationForm
     template_name = 'users/login.html'
 
     def get_success_url(self):
         return reverse_lazy('account')
 
+
+# ОБНОВЛЕНИЕ СТРАНИЧКИ ПОЛЬЗОВАТЕЛЯ
+class UpdateUser(UpdateView): #без отдельной формы
+    model = get_user_model()
+    fields = ['username', 'photo']
+    template_name_suffix = 'update'
+
+    def get_success_url(self):
+        return reverse_lazy('account')
 
 
 
