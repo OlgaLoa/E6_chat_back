@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+{% if room.host == request.user %}
+<h1>Update your chat</h1>
+<hr>
+<form action="" method="post"> <!-- для передачи информации, кот. изменяет состояние бд method="post -->
+    {% csrf_token %} <!-- #защита от хакеров -->
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+</form>
+{% endif %}
+<h1>You do not have the appropriate rights! </h1>
+{% endblock content %}

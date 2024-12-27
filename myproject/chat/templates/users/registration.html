@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Registration</h1>
+<hr>
+<form action="" method="post" enctype="multipart/form-data"> <!--enctype="multipart/form-data"> - для передачи данных файла -->
+    {% csrf_token %} <!-- #защита от хакеров -->
+    <input type="hidden" name="next" value="{{ next }}" />
+    <div align="left"> {{ form.as_p }} </div>
+    <div align="left"><input type="submit" value="Save" /> </div>
+</form>
+{% endblock content %}
+
+
+<!--next содержит URL-адрес страницы, на которую следует сделать перенаправление после успешной авторизации.-->

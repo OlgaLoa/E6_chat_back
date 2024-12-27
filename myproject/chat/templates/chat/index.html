@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Home page "Chat Rooms"</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    What chat room would you like to enter?<br>
+    <input id="room-name-input" type="text" size="100"><br>
+    <input id="room-name-submit" type="button" value="Enter">
+
+    <script>
+        document.querySelector('#room-name-input').focus(); //.focus() вызывается на элементе DOM и активирует фокус на этом элементе.
+        document.querySelector('#room-name-input').onkeyup = function(e) { //событие кливиатуры : фиксирует момент отпускания клавиши после нажатия
+            if (e.keyCode === 13) {  // если нажат enter, return
+                document.querySelector('#room-name-submit').click();  //имитирует клик мышкой по элементу
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) { //Событие onclick — это событие JavaScript, которое активируется, когда пользователь кликает на определенный элемент страницы
+            var roomName = document.querySelector('#room-name-input').value; //определяем название комнаты введенное
+            window.location.pathname = '/chat/' + roomName + '/'; //property returns the pathname of the current page
+        };
+    </script>
+
+    {% else %}
+    <i><a href="{% url 'login' %}">For access login please</a></i>
+
+    {% endif %}
+
+</body>
+</html>
+
+{% endblock content %}

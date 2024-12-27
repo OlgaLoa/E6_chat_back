@@ -1,0 +1,42 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+<h1>Current chats:</h1>
+{% if room_list %}
+
+<div style="text-align: left;">
+
+           {% for one_room in room_list %} <!-- данные из views -->
+
+               <!-- Не забываем, что переменные в шаблоне ничем не отличаются
+                от переменных в Python. Здесь также можно получать доступ к
+                полям объекта модели. Например, здесь мы выводим имя,
+                в следующем столбце описание, и т.д.  -->
+               <td>{{ one_room.id}}. Chat name: {{ one_room.room_name}}</td><br>
+               <td> Owner: {{ one_room.host }} </td><br>
+
+                {% if one_room.is_private%}
+                <td> Private </td><br>
+                <td> <a href="../create_private_chat/{{one_room.room_hos}}" >Join the private chat</a></td><br>
+                 {% else %}
+                 <td> Public  </td><br>
+                 <td> <a href="../chat/{{one_room.room_name}}" >Join the public chat</a></td><br>
+                 {% endif %}
+
+
+           {% endfor %}
+</div>
+{% else %}
+       <!-- Если новостей нет, то говорим, что новостей нет -->
+       <h2>No opened chats for you!</h2>
+{% endif %}
+
+
+
+<footer> <i><a href="{% url 'index' %}">Join the selected chat. Enter the name, please.</a></i></footer>
+{% endblock content%}

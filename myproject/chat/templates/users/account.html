@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Your account</h1>
+<hr>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{user.username}} <p>
+    {% if user.photo %}
+        <img src="{{ user.photo.url }}" alt="Your Photo"/>
+     {% else %}
+         <img width="300" src="{% static 'default.jpeg' %}">
+    {% endif %}
+</form>
+
+<td><a href="{% url 'updating' user.id %}">Update your account</a></td><br>
+{% endblock content %}
+
